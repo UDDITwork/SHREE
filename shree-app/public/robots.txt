@@ -1,0 +1,48 @@
+# robots.txt for Uddit's Portfolio - AI Engineer, RAG Expert, MCP Server Specialist
+
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /projects/
+Allow: /contact/
+Allow: /about/
+Allow: /rag-systems/
+Allow: /mcp-servers/
+Allow: /patent-ai-tools/
+Allow: /vector-databases/
+Allow: /embeddings/
+Allow: /chunking-strategies/
+Allow: /agentic-ai/
+
+# Sitemap location
+Sitemap: https://uddit.site/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Block unnecessary paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
