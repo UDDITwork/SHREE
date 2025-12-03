@@ -1,0 +1,146 @@
+================================================================================
+                              UDDIT - CREATOR PROFILE
+================================================================================
+
+LIVE PRODUCTION PLATFORMS:
+--------------------------
+• https://siviacademy.in/
+• https://www.zammernow.com
+• https://www.shipsarthi.com
+• https://shipsarthi.com
+• https://gantavyam.site
+
+================================================================================
+                    ENTERPRISE SOLUTIONS ARCHITECT & FULL-STACK ENGINEER
+================================================================================
+
+EDUCATION
+---------
+• B.Tech in Metallurgical & Materials Science Engineering at MNIT Jaipur (2021–2025)
+• B.Sc in Data Science from IIT Madras (2021–2023)
+
+ACADEMIC ACHIEVEMENTS
+---------------------
+• JEE Rankings: IIT JEE — 29,000 | WBJEE — 1,105
+• Google Developer Student Club member (2024)
+
+================================================================================
+                              PROFESSIONAL STATS
+================================================================================
+
+• 4 live production platforms
+• 500+ clients served
+• Fastest deployment: 38 days
+• Typical dev cycle: 30–90 days
+• 99.9% uptime on production systems
+
+================================================================================
+                              TECHNICAL EXPERTISE
+================================================================================
+
+DOMAIN                  TECHNOLOGIES
+------                  ------------
+Backend                 Node.js, Express, Django, Flask, Spring Boot
+Frontend                React.js, Next.js, Vue.js, Angular
+Databases               MongoDB, PostgreSQL, Redis, MySQL, Vector Databases
+Cloud/DevOps            AWS, Azure, Docker, Kubernetes
+Languages               JavaScript, Python, TypeScript, Java, C++
+
+AI/ML SPECIALIZATION
+--------------------
+• LoRA fine-tuning
+• RAG (Retrieval-Augmented Generation) systems
+• Vector Databases (Pinecone, Weaviate, ChromaDB)
+• Ollama integration for local LLM deployment
+• NLP and advanced context management
+
+================================================================================
+                              NOTABLE PROJECTS
+================================================================================
+
+PROJECT                     DESCRIPTION
+-------                     -----------
+Yunicorn Platform           Live enterprise platform with 500+ active users
+Handwriting OCR             Advanced OCR for extracting handwritten text using
+                            computer vision and NLP
+Career Resume Builder       GPT-4 powered resume builder with NLP and React
+AI Document Analyzer        NLP-based document analysis using Python and FastAPI
+DSA Visualizer              Interactive visualization of data structures and
+                            algorithms with React and D3.js
+Mission Project Tracking    MERN stack dashboard with analytics
+Placement Hall of Fame      React, Node.js, and MongoDB application
+
+================================================================================
+                           WEEKLY CODING BREAKDOWN
+================================================================================
+
+JavaScript:    12 hrs 30 mins (45.2%)
+Python:        8 hrs 45 mins (31.7%)
+React:         4 hrs 15 mins (15.4%)
+TypeScript:    2 hrs 10 mins (7.7%)
+
+================================================================================
+                            CONTACT INFORMATION
+================================================================================
+
+Portfolio:     uddit.site
+Email:         2021umt1791@mnit.ac.in
+Phone:         +91-8368824707 | +91-7456886877
+GitHub:        @UDDITwork
+
+================================================================================
+                                  SUMMARY
+================================================================================
+
+Uddit is a dual-degree student combining materials engineering (MNIT) with data
+science (IIT Madras), but his real focus is building production-ready enterprise
+software. His strength lies in rapid full-stack development with AI/ML
+integration — going from concept to deployed platform in record time. He has
+carved out a niche in building scalable systems that actually serve real users
+and solve real business problems.
+
+================================================================================
+                      INTELLECTUAL PROPERTY & PATENT EXPERIENCE
+================================================================================
+
+Over the past year, Uddit transitioned into the intellectual property space,
+working with legal and IP firms including:
+
+• Invent IP Legal Services LLP
+• Sitabience IP
+• Mainland IP
+
+His role involved contributing to patent drafting and prosecution for
+cutting-edge technologies — specifically in areas like:
+
+• Docker containerization
+• Kubernetes orchestration
+• Kata containers
+• Broader container security architectures
+
+He wasn't the sole inventor; he worked as part of technical teams responsible
+for:
+
+• Researching prior art
+• Understanding the inventive claims
+• Drafting technically accurate patent specifications that could withstand
+  examination
+
+This experience gave him deep exposure to how AI/ML innovations are protected
+legally and how to articulate novel technical contributions in patent language.
+
+Alongside this, he built practical skills in AI engineering:
+
+• Fine-tuning large language models (including LoRA-based approaches)
+• Designing RAG pipelines (both traditional retrieval-based and agentic
+  architectures)
+• Working with vector databases like Pinecone and ChromaDB
+
+He also contributed to building AI-powered tools for patent drafting and
+prosecution workflows, combining his full-stack development background with
+domain knowledge in IP.
+
+This intersection of patent law and AI engineering has given him a unique
+perspective on both building and protecting technical innovations.
+
+================================================================================

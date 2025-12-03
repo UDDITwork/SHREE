@@ -9,9 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0",
+    "framer-motion": "^12.23.25",
     "next": "16.0.3",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "tech-stack-icons": "^3.3.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
