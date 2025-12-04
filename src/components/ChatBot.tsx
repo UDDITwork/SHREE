@@ -5,20 +5,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface Message {
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
 }
+
+type ChatPhase = 'chatting' | 'collecting_info' | 'collecting_requirement' | 'completed';
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm SHREE, Uddit's personal AI assistant. How can I help you learn about Uddit today?",
+      content: "Hey there! I'm SHREE, Uddit's AI assistant. What would you like to know about him?",
     },
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userQuestionCount, setUserQuestionCount] = useState(0);
+  const [chatPhase, setChatPhase] = useState<ChatPhase>('chatting');
+  const [leadInfo, setLeadInfo] = useState({ email: '', phone: '', name: '' });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,21 +41,90 @@ export const ChatBot = () => {
     }
   }, [isOpen]);
 
+  const saveLead = async (requirement: string) => {
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...leadInfo,
+          requirement,
+          chatHistory: messages,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to save lead:', error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
-    const userMessage: Message = { role: 'user', content: inputValue.trim() };
+    const userInput = inputValue.trim();
+    const userMessage: Message = { role: 'user', content: userInput };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+
+    // Handle different chat phases
+    if (chatPhase === 'collecting_info') {
+      // Parse email and phone from input
+      const emailMatch = userInput.match(/[\w.-]+@[\w.-]+\.\w+/);
+      const phoneMatch = userInput.match(/[\d\s+-]{10,}/);
+
+      const newLeadInfo = {
+        ...leadInfo,
+        email: emailMatch ? emailMatch[0] : leadInfo.email,
+        phone: phoneMatch ? phoneMatch[0].replace(/\s/g, '') : leadInfo.phone,
+        name: !emailMatch && !phoneMatch ? userInput : leadInfo.name,
+      };
+      setLeadInfo(newLeadInfo);
+
+      if (newLeadInfo.email || newLeadInfo.phone) {
+        setChatPhase('collecting_requirement');
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: "Perfect! Now please share your requirement or what you'd like to discuss with Uddit. I'll make sure he gets your message.",
+        }]);
+      } else {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: "I'll need either your email or phone number so Uddit can reach out to you. Could you please share that?",
+        }]);
+      }
+      return;
+    }
+
+    if (chatPhase === 'collecting_requirement') {
+      await saveLead(userInput);
+      setChatPhase('completed');
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "Thank you so much! I've noted down everything and Uddit will get back to you soon. Is there anything else you'd like to know about him in the meantime?",
+      }]);
+      return;
+    }
+
+    // Normal chat flow
+    const newQuestionCount = userQuestionCount + 1;
+    setUserQuestionCount(newQuestionCount);
+
+    // After 4 questions, trigger lead capture
+    if (newQuestionCount >= 4 && chatPhase === 'chatting') {
+      setChatPhase('collecting_info');
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "I'm really enjoying our conversation! It seems like you're quite interested in Uddit's work. I'd love to connect you directly with him. Could you share your email and phone number? He'll personally reach out to discuss how he might help you.",
+      }]);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [...messages, userMessage].map(m => ({
             role: m.role,
@@ -59,66 +133,71 @@ export const ChatBot = () => {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to get response');
-      }
+      if (!response.ok) throw new Error('Failed to get response');
 
       const data = await response.json();
-      const assistantMessage: Message = {
+      setMessages(prev => [...prev, {
         role: 'assistant',
         content: data.message,
-      };
-      setMessages(prev => [...prev, assistantMessage]);
+      }]);
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages(prev => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: 'I apologize, but I encountered an error. Please try again later.',
-        },
-      ]);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Oops! Something went wrong. Could you try asking that again?',
+      }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const suggestedQuestions = [
-    "What are Uddit's skills?",
-    "Tell me about his projects",
-    "What's his education?",
-    "How can I contact him?",
+    "What are his skills?",
+    "Tell me about projects",
+    "His experience?",
+    "How to contact him?",
   ];
+
+  const getPlaceholder = () => {
+    switch (chatPhase) {
+      case 'collecting_info':
+        return 'Enter your email or phone...';
+      case 'collecting_requirement':
+        return 'Describe your requirement...';
+      default:
+        return 'Ask about Uddit...';
+    }
+  };
 
   return (
     <>
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button - Standalone Icon */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff] flex items-center justify-center shadow-lg shadow-[#00ff88]/20"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 flex items-center justify-center"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        animate={{
-          boxShadow: isOpen
-            ? '0 0 20px rgba(0, 255, 136, 0.4)'
-            : '0 0 30px rgba(0, 255, 136, 0.3)',
-        }}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
-            <motion.svg
+            <motion.div
               key="close"
-              className="w-7 h-7 text-black"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              className="w-14 h-14 rounded-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff] flex items-center justify-center shadow-lg"
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              style={{ boxShadow: '0 0 30px rgba(0, 255, 136, 0.4)' }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </motion.svg>
+              <svg
+                className="w-7 h-7 text-black"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.div>
           ) : (
             <motion.div
               key="icon"
@@ -126,13 +205,29 @@ export const ChatBot = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="relative w-9 h-9"
+              className="relative w-16 h-16"
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(0, 255, 136, 0.5))',
+              }}
             >
               <Image
                 src="/AI-ICON.png"
                 alt="SHREE AI"
                 fill
                 className="object-contain"
+              />
+              {/* Pulsing ring effect */}
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-[#00ff88]"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.8, 0, 0.8],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
               />
             </motion.div>
           )}
@@ -157,16 +252,14 @@ export const ChatBot = () => {
             {/* Header */}
             <div className="px-5 py-4 border-b border-white/10 bg-gradient-to-r from-[#00ff88]/10 to-[#00d4ff]/10">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff] p-[2px]">
-                  <div className="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
-                    <Image
-                      src="/AI-ICON.png"
-                      alt="SHREE"
-                      width={28}
-                      height={28}
-                      className="object-contain"
-                    />
-                  </div>
+                <div className="relative w-12 h-12">
+                  <Image
+                    src="/AI-ICON.png"
+                    alt="SHREE"
+                    fill
+                    className="object-contain"
+                    style={{ filter: 'drop-shadow(0 0 10px rgba(0, 255, 136, 0.5))' }}
+                  />
                   {/* Online indicator */}
                   <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#00ff88] rounded-full border-2 border-[#0a0a0a]" />
                 </div>
@@ -174,6 +267,12 @@ export const ChatBot = () => {
                   <h3 className="font-bold text-white text-lg">SHREE</h3>
                   <p className="text-xs text-[#00ff88]">Uddit's AI Assistant • Online</p>
                 </div>
+                {/* Question counter */}
+                {chatPhase === 'chatting' && userQuestionCount > 0 && (
+                  <div className="ml-auto text-xs text-gray-500">
+                    {4 - userQuestionCount > 0 ? `${4 - userQuestionCount} questions left` : ''}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -187,8 +286,19 @@ export const ChatBot = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
+                  {message.role === 'assistant' && (
+                    <div className="w-8 h-8 mr-2 flex-shrink-0 relative">
+                      <Image
+                        src="/AI-ICON.png"
+                        alt="SHREE"
+                        fill
+                        className="object-contain"
+                        style={{ filter: 'drop-shadow(0 0 5px rgba(0, 255, 136, 0.3))' }}
+                      />
+                    </div>
+                  )}
                   <div
-                    className={`max-w-[85%] px-4 py-3 rounded-2xl ${
+                    className={`max-w-[80%] px-4 py-3 rounded-2xl ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#00ff88] to-[#00d4ff] text-black rounded-br-md'
                         : 'bg-white/5 border border-white/10 text-gray-200 rounded-bl-md'
@@ -206,6 +316,14 @@ export const ChatBot = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
+                  <div className="w-8 h-8 mr-2 flex-shrink-0 relative">
+                    <Image
+                      src="/AI-ICON.png"
+                      alt="SHREE"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                   <div className="bg-white/5 border border-white/10 px-4 py-3 rounded-2xl rounded-bl-md">
                     <div className="flex gap-1">
                       <motion.span
@@ -228,15 +346,15 @@ export const ChatBot = () => {
                 </motion.div>
               )}
 
-              {/* Suggested questions (only show if no user messages yet) */}
-              {messages.length === 1 && !isLoading && (
+              {/* Suggested questions */}
+              {messages.length === 1 && !isLoading && chatPhase === 'chatting' && (
                 <motion.div
                   className="space-y-2 pt-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <p className="text-xs text-gray-500 px-1">Suggested questions:</p>
+                  <p className="text-xs text-gray-500 px-1">Quick questions:</p>
                   <div className="flex flex-wrap gap-2">
                     {suggestedQuestions.map((question, index) => (
                       <motion.button
@@ -267,7 +385,7 @@ export const ChatBot = () => {
                   type="text"
                   value={inputValue}
                   onChange={e => setInputValue(e.target.value)}
-                  placeholder="Ask about Uddit..."
+                  placeholder={getPlaceholder()}
                   disabled={isLoading}
                   className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff88]/50 focus:ring-1 focus:ring-[#00ff88]/20 transition-all disabled:opacity-50"
                 />
