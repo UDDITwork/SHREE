@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "gcp-build": ""
+  },
+  "overrides": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
