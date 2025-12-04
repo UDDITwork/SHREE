@@ -29,7 +29,7 @@ ACADEMIC ACHIEVEMENTS
 ================================================================================
 
 • 4 live production platforms
-• 500+ clients served
+• 50+ clients served
 • Fastest deployment: 38 days
 • Typical dev cycle: 30–90 days
 • 99.9% uptime on production systems
