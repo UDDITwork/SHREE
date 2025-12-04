@@ -5,13 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p ${PORT:-3000}",
-    "lint": "eslint",
-    "gcp-build": ""
-  },
-  "overrides": {
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
