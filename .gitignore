@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+VSCodeUserSetup-x64-1.106.0.exe
+*.exe

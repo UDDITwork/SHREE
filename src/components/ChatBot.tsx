@@ -244,13 +244,15 @@ export const ChatBot = () => {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, type: 'spring', stiffness: 300, damping: 25 }}
             style={{
-              background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.98) 0%, rgba(15, 20, 18, 0.98) 100%)',
-              border: '1px solid rgba(0, 255, 136, 0.2)',
-              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(0, 255, 136, 0.1)',
+              background: 'rgba(10, 10, 10, 0.4)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
             }}
           >
             {/* Header */}
-            <div className="px-5 py-4 border-b border-white/10 bg-gradient-to-r from-[#00ff88]/10 to-[#00d4ff]/10">
+            <div className="px-5 py-4 border-b border-white/5">
               <div className="flex items-center gap-3">
                 <div className="relative w-12 h-12">
                   <Image
@@ -261,7 +263,7 @@ export const ChatBot = () => {
                     style={{ filter: 'drop-shadow(0 0 10px rgba(0, 255, 136, 0.5))' }}
                   />
                   {/* Online indicator */}
-                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#00ff88] rounded-full border-2 border-[#0a0a0a]" />
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#00ff88] rounded-full border-2 border-transparent" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-lg">SHREE</h3>
@@ -300,8 +302,8 @@ export const ChatBot = () => {
                   <div
                     className={`max-w-[80%] px-4 py-3 rounded-2xl ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-[#00ff88] to-[#00d4ff] text-black rounded-br-md'
-                        : 'bg-white/5 border border-white/10 text-gray-200 rounded-bl-md'
+                        ? 'bg-gradient-to-r from-[#00ff88]/80 to-[#00d4ff]/80 text-black rounded-br-md'
+                        : 'bg-white/5 border border-white/5 text-gray-200 rounded-bl-md'
                     }`}
                   >
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
@@ -324,7 +326,7 @@ export const ChatBot = () => {
                       className="object-contain"
                     />
                   </div>
-                  <div className="bg-white/5 border border-white/10 px-4 py-3 rounded-2xl rounded-bl-md">
+                  <div className="bg-white/5 border border-white/5 px-4 py-3 rounded-2xl rounded-bl-md">
                     <div className="flex gap-1">
                       <motion.span
                         className="w-2 h-2 bg-[#00ff88] rounded-full"
@@ -359,7 +361,7 @@ export const ChatBot = () => {
                     {suggestedQuestions.map((question, index) => (
                       <motion.button
                         key={index}
-                        className="px-3 py-1.5 text-xs bg-white/5 border border-white/10 rounded-full text-gray-300 hover:bg-white/10 hover:border-[#00ff88]/30 transition-all"
+                        className="px-3 py-1.5 text-xs bg-white/5 border border-white/5 rounded-full text-gray-300 hover:bg-white/10 hover:border-[#00ff88]/20 transition-all"
                         onClick={() => {
                           setInputValue(question);
                           inputRef.current?.focus();
@@ -378,7 +380,7 @@ export const ChatBot = () => {
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="p-4 border-t border-white/10">
+            <form onSubmit={handleSubmit} className="p-4 border-t border-white/5">
               <div className="flex gap-2">
                 <input
                   ref={inputRef}
@@ -387,7 +389,7 @@ export const ChatBot = () => {
                   onChange={e => setInputValue(e.target.value)}
                   placeholder={getPlaceholder()}
                   disabled={isLoading}
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff88]/50 focus:ring-1 focus:ring-[#00ff88]/20 transition-all disabled:opacity-50"
+                  className="flex-1 bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00ff88]/30 focus:ring-0 transition-all disabled:opacity-50"
                 />
                 <motion.button
                   type="submit"
