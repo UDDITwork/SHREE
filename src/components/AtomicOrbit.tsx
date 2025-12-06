@@ -115,13 +115,13 @@ export const AtomicOrbit = () => {
                     transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                   >
                     {/* Logo container with atom-like styling */}
-                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 p-2 hover:bg-white/20 hover:scale-110 transition-all duration-300 cursor-pointer group shadow-lg shadow-black/20">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white border-4 border-white/40 p-2 hover:scale-110 transition-all duration-300 cursor-pointer group shadow-xl shadow-black/40">
                       <div className="relative w-full h-full rounded-full overflow-hidden bg-white">
                         <Image
                           src={logo.src}
                           alt={logo.name}
                           fill
-                          className="object-contain p-1"
+                          className="object-contain p-2"
                         />
                       </div>
                       {/* Tooltip */}
