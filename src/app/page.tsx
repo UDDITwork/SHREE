@@ -7,6 +7,7 @@ import { FloatingNodes, HeroContent, ScrollIndicator } from '@/components/Floati
 import { TechStackGrid } from '@/components/TechStackIcons';
 import { MouseSpotlight } from '@/components/MouseSpotlight';
 import { ChatBot } from '@/components/ChatBot';
+import { AtomicOrbit } from '@/components/AtomicOrbit';
 
 export default function Home() {
   return (
@@ -103,6 +104,9 @@ export default function Home() {
 
       {/* Tech Stack Icons */}
       <TechStackGrid />
+
+      {/* Atomic Orbit - Companies */}
+      <AtomicOrbit />
 
       {/* SHREE AI ChatBot */}
       <ChatBot />
