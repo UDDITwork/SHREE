@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const companyLogos = [
-  { name: 'Shipsarthi', src: '/shipsarthi.png' },
-  { name: 'Zammer', src: '/zammer.png' },
-  { name: 'YourCareer', src: '/yourcareer.png' },
-  { name: 'Richie', src: '/richie.png' },
-  { name: 'Patent Tool', src: '/patent tool.png' },
+  { name: 'Shipsarthi', src: '/shipsarthi.png', orbit: 'inner' },
+  { name: 'Zammer', src: '/zammer.png', orbit: 'inner' },
+  { name: 'YourCareer', src: '/yourcareer.png', orbit: 'inner' },
+  { name: 'Richie', src: '/richie.png', orbit: 'outer' },
+  { name: 'Patent Tool', src: '/patent tool.png', orbit: 'inner' },
 ];
 
 export const AtomicOrbit = () => {
@@ -79,17 +79,16 @@ export const AtomicOrbit = () => {
             />
           </div>
 
-          {/* Rotating Logos Container */}
+          {/* Rotating Logos Container - Inner Orbit */}
           <motion.div
             className="absolute w-80 h-80 md:w-[400px] md:h-[400px]"
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
           >
-            {companyLogos.map((logo, index) => {
-              const angle = (index * 360) / companyLogos.length;
+            {companyLogos.filter(logo => logo.orbit === 'inner').map((logo, index, arr) => {
+              const angle = (index * 360) / arr.length;
               const radian = (angle * Math.PI) / 180;
-              // Position logos on the orbit
-              const radius = 50; // percentage from center
+              const radius = 50;
               const x = Math.cos(radian) * radius;
               const y = Math.sin(radian) * radius;
 
@@ -99,7 +98,6 @@ export const AtomicOrbit = () => {
                   className="absolute left-1/2 top-1/2"
                   style={{
                     transform: `translate(-50%, -50%) translate(${x}%, ${y}%)`,
-                    // Position at the edge of the orbit
                     left: `${50 + x}%`,
                     top: `${50 + y}%`,
                   }}
@@ -108,13 +106,11 @@ export const AtomicOrbit = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                 >
-                  {/* Counter-rotate to keep logos upright */}
                   <motion.div
                     className="relative"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                   >
-                    {/* Logo container - transparent, just the image */}
                     <div className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group">
                       <Image
                         src={logo.src}
@@ -122,14 +118,64 @@ export const AtomicOrbit = () => {
                         fill
                         className="object-contain drop-shadow-lg"
                       />
-                      {/* Tooltip */}
                       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                         <span className="text-xs text-gray-300 bg-black/80 px-2 py-1 rounded">
                           {logo.name}
                         </span>
                       </div>
                     </div>
-                    {/* Glowing dot effect */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-md -z-10 opacity-50" />
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          {/* Rotating Logos Container - Outer Orbit (Richie) */}
+          <motion.div
+            className="absolute w-[400px] h-[400px] md:w-[520px] md:h-[520px]"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          >
+            {companyLogos.filter(logo => logo.orbit === 'outer').map((logo, index) => {
+              const angle = 45; // Position Richie at 45 degrees
+              const radian = (angle * Math.PI) / 180;
+              const radius = 50;
+              const x = Math.cos(radian) * radius;
+              const y = Math.sin(radian) * radius;
+
+              return (
+                <motion.div
+                  key={logo.name}
+                  className="absolute left-1/2 top-1/2"
+                  style={{
+                    transform: `translate(-50%, -50%) translate(${x}%, ${y}%)`,
+                    left: `${50 + x}%`,
+                    top: `${50 + y}%`,
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                >
+                  <motion.div
+                    className="relative"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+                  >
+                    <div className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group">
+                      <Image
+                        src={logo.src}
+                        alt={logo.name}
+                        fill
+                        className="object-contain drop-shadow-lg"
+                      />
+                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        <span className="text-xs text-gray-300 bg-black/80 px-2 py-1 rounded">
+                          {logo.name}
+                        </span>
+                      </div>
+                    </div>
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-md -z-10 opacity-50" />
                   </motion.div>
                 </motion.div>
