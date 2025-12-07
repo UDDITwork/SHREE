@@ -81,12 +81,13 @@ export const AtomicOrbit = () => {
 
           {/* Rotating Logos Container - All 5 on same orbit */}
           <motion.div
-            className="absolute w-80 h-80 md:w-[400px] md:h-[400px]"
+            className="absolute w-[420px] h-[420px] md:w-[500px] md:h-[500px]"
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
           >
             {companyLogos.map((logo, index) => {
-              const angle = (index * 360) / companyLogos.length;
+              // Start at -90 degrees (top) so logos are evenly distributed and visible
+              const angle = -90 + (index * 360) / companyLogos.length;
               const radian = (angle * Math.PI) / 180;
               const radius = 50;
               const x = Math.cos(radian) * radius;
