@@ -3,12 +3,17 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const companyLogos = [
+// Inner orbit logos (4 logos)
+const innerOrbitLogos = [
   { name: 'Shipsarthi', src: '/shipsarthi.png' },
   { name: 'Zammer', src: '/zammer.png' },
   { name: 'YourCareer', src: '/yourcareer.png' },
-  { name: 'Richie', src: '/richie.png' },
   { name: 'Patent Tool', src: '/patent tool.png' },
+];
+
+// Outer orbit logos (Richie alone)
+const outerOrbitLogos = [
+  { name: 'Richie', src: '/richie.png' },
 ];
 
 export const AtomicOrbit = () => {
@@ -79,14 +84,14 @@ export const AtomicOrbit = () => {
             />
           </div>
 
-          {/* Rotating Logos Container */}
+          {/* Inner Orbit - 4 logos */}
           <motion.div
             className="absolute w-80 h-80 md:w-[400px] md:h-[400px]"
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
           >
-            {companyLogos.map((logo, index) => {
-              const angle = (index * 360) / companyLogos.length;
+            {innerOrbitLogos.map((logo, index) => {
+              const angle = (index * 360) / innerOrbitLogos.length;
               const radian = (angle * Math.PI) / 180;
               const radius = 50;
               const x = Math.cos(radian) * radius;
@@ -110,6 +115,55 @@ export const AtomicOrbit = () => {
                     className="relative"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                  >
+                    <div className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group">
+                      <Image
+                        src={logo.src}
+                        alt={logo.name}
+                        fill
+                        className="object-contain drop-shadow-lg"
+                      />
+                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        <span className="text-xs text-gray-300 bg-black/80 px-2 py-1 rounded">
+                          {logo.name}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-md -z-10 opacity-50" />
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          {/* Outer Orbit - Richie */}
+          <motion.div
+            className="absolute w-[400px] h-[400px] md:w-[520px] md:h-[520px]"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+          >
+            {outerOrbitLogos.map((logo) => {
+              const radius = 50;
+              const x = radius;
+              const y = 0;
+
+              return (
+                <motion.div
+                  key={logo.name}
+                  className="absolute left-1/2 top-1/2"
+                  style={{
+                    left: `${50 + x}%`,
+                    top: `${50 + y}%`,
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                >
+                  <motion.div
+                    className="relative"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
                   >
                     <div className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group">
                       <Image
