@@ -824,3 +824,17 @@ section {
 .parallax-fast {
   transform: translateY(calc(var(--scroll) * 0.8));
 }
+
+/* ============================================================================
+   BLOB CURSOR - HIDE DEFAULT CURSOR ON DESKTOP
+   ============================================================================ */
+
+@media (pointer: fine) and (min-width: 768px) {
+  body {
+    cursor: none;
+  }
+
+  a, button, [role="button"], input, textarea, select, label {
+    cursor: none;
+  }
+}
