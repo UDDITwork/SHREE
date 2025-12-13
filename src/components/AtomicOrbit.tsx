@@ -129,7 +129,7 @@ export const AtomicOrbit = () => {
                       className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group flex items-center justify-center"
                     >
                       {logo.isText ? (
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
+                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-blue-400 drop-shadow-lg" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
                           {logo.letter}
                         </span>
                       ) : (
