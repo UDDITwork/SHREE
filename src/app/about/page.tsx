@@ -412,9 +412,9 @@ export default function AboutPage() {
               <span className="bg-gradient-to-r from-gray-400 to-gray-600 bg-clip-text text-transparent">Drafting</span>
             </motion.h1>
 
-            {/* Central Layout - Video + Phone overlapping */}
+            {/* Central Layout - Video with Social Overlay on phone in video */}
             <div className="relative flex flex-col items-center justify-center mt-8">
-              {/* Video Container - Centered behind heading continuation */}
+              {/* Video Container with Social Overlay */}
               <motion.div
                 className="relative w-full flex items-center justify-center"
                 initial={{ opacity: 0 }}
@@ -439,151 +439,100 @@ export default function AboutPage() {
                   <source src="https://neon.com/videos/pages/home/lightning/idle.mp4?updated=20240510192048" type="video/mp4" />
                 </video>
 
-                {/* Phone Mockup - Positioned to overlap with video */}
+                {/* Social Profiles Overlay - Positioned on the video's phone frame */}
                 <motion.div
-                  className="absolute right-4 sm:right-8 md:right-16 lg:right-24 top-1/2 -translate-y-1/2"
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  className="absolute left-1/2 -translate-x-1/2 bottom-[15%] sm:bottom-[18%] md:bottom-[20%] w-[140px] sm:w-[180px] md:w-[220px]"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
                 >
-                  {/* Phone Frame */}
-                  <div className="relative w-[180px] sm:w-[220px] md:w-[280px] lg:w-[320px]">
-                    {/* Phone Bezel */}
-                    <div className="relative bg-[#1a1a1a] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-2 sm:p-3 shadow-2xl border border-gray-800">
-                      {/* Phone Notch */}
-                      <div className="absolute top-4 sm:top-5 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 sm:h-5 bg-black rounded-full z-20" />
+                  {/* Social Content Card */}
+                  <div className="p-2 sm:p-3 rounded-xl bg-[#0d1117]/90 backdrop-blur-sm border border-white/10">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[8px] sm:text-[10px] text-gray-400 font-medium">Social</span>
+                      <span className="px-1 py-0.5 bg-[#00ff88]/20 text-[#00ff88] text-[6px] sm:text-[8px] rounded-full flex items-center gap-0.5">
+                        <span className="w-1 h-1 bg-[#00ff88] rounded-full animate-pulse" />
+                        Active
+                      </span>
+                    </div>
 
-                      {/* Phone Screen */}
-                      <div className="relative bg-gradient-to-b from-[#0a1628] to-[#0d1117] rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden aspect-[9/19]">
-                        {/* Screen Content - Wave Animation at Top */}
-                        <div className="absolute inset-0">
-                          {/* Animated wave pattern */}
-                          <div className="absolute top-0 left-0 right-0 h-1/2 overflow-hidden">
-                            <motion.div
-                              className="absolute inset-0"
-                              style={{
-                                background: 'radial-gradient(ellipse at center, rgba(0, 180, 255, 0.15) 0%, transparent 70%)',
-                              }}
-                              animate={{
-                                scale: [1, 1.2, 1],
-                                opacity: [0.5, 0.8, 0.5],
-                              }}
-                              transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                              }}
-                            />
-                            {/* Wave lines */}
-                            {[...Array(8)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"
-                                style={{ top: `${20 + i * 8}%` }}
-                                animate={{
-                                  opacity: [0.2, 0.5, 0.2],
-                                  scaleX: [0.8, 1, 0.8],
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  delay: i * 0.1,
-                                }}
-                              />
-                            ))}
-                          </div>
-
-                          {/* Social Profiles - Bottom portion of phone */}
-                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/95 to-transparent">
-                            {/* Monitoring Header */}
-                            <div className="flex items-center justify-between mb-2 sm:mb-3">
-                              <span className="text-[10px] sm:text-xs text-gray-400 font-medium">Social</span>
-                              <span className="px-1.5 py-0.5 bg-[#00ff88]/20 text-[#00ff88] text-[8px] sm:text-[10px] rounded-full flex items-center gap-1">
-                                <span className="w-1 h-1 bg-[#00ff88] rounded-full animate-pulse" />
-                                Active
-                              </span>
-                            </div>
-
-                            {/* Social Links - Compact */}
-                            <div className="space-y-2">
-                              {/* LinkedIn */}
-                              <a
-                                href="https://www.linkedin.com/in/lorduddit-/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
-                              >
-                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0077b5] flex items-center justify-center flex-shrink-0">
-                                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                  </svg>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[10px] sm:text-xs font-medium text-white truncate">LinkedIn</p>
-                                  <p className="text-[8px] sm:text-[10px] text-gray-500 truncate">@lorduddit-</p>
-                                </div>
-                                <svg className="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                              </a>
-
-                              {/* GitHub */}
-                              <a
-                                href="https://github.com/UDDITwork"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
-                              >
-                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#333] flex items-center justify-center flex-shrink-0">
-                                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                  </svg>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[10px] sm:text-xs font-medium text-white truncate">GitHub</p>
-                                  <p className="text-[8px] sm:text-[10px] text-gray-500 truncate">@UDDITwork</p>
-                                </div>
-                                <svg className="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                              </a>
-
-                              {/* YouTube */}
-                              <a
-                                href="https://www.youtube.com/@uddit748"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
-                              >
-                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FF0000] flex items-center justify-center flex-shrink-0">
-                                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                  </svg>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[10px] sm:text-xs font-medium text-white truncate">YouTube</p>
-                                  <p className="text-[8px] sm:text-[10px] text-gray-500 truncate">@uddit748</p>
-                                </div>
-                                <svg className="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                              </a>
-                            </div>
-
-                            {/* Progress Bar */}
-                            <div className="mt-3 sm:mt-4">
-                              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                                <motion.div
-                                  className="h-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff]"
-                                  initial={{ width: '0%' }}
-                                  animate={{ width: '100%' }}
-                                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                                />
-                              </div>
-                            </div>
-                          </div>
+                    {/* Social Links */}
+                    <div className="space-y-1.5">
+                      {/* LinkedIn */}
+                      <a
+                        href="https://www.linkedin.com/in/lorduddit-/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#0077b5] flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                          </svg>
                         </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[8px] sm:text-[10px] font-medium text-white truncate">LinkedIn</p>
+                          <p className="text-[6px] sm:text-[8px] text-gray-500 truncate">@lorduddit-</p>
+                        </div>
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+
+                      {/* GitHub */}
+                      <a
+                        href="https://github.com/UDDITwork"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#333] flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[8px] sm:text-[10px] font-medium text-white truncate">GitHub</p>
+                          <p className="text-[6px] sm:text-[8px] text-gray-500 truncate">@UDDITwork</p>
+                        </div>
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+
+                      {/* YouTube */}
+                      <a
+                        href="https://www.youtube.com/@uddit748"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+                      >
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#FF0000] flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[8px] sm:text-[10px] font-medium text-white truncate">YouTube</p>
+                          <p className="text-[6px] sm:text-[8px] text-gray-500 truncate">@uddit748</p>
+                        </div>
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="mt-2">
+                      <div className="h-0.5 bg-white/10 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff]"
+                          initial={{ width: '0%' }}
+                          animate={{ width: '100%' }}
+                          transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                        />
                       </div>
                     </div>
                   </div>
