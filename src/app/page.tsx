@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingNodes, HeroContent, ScrollIndicator } from '@/components/FloatingNodes';
 import { TechStackGrid } from '@/components/TechStackIcons';
 import { MouseSpotlight } from '@/components/MouseSpotlight';
@@ -10,6 +11,8 @@ import { ChatBot } from '@/components/ChatBot';
 import { AtomicOrbit } from '@/components/AtomicOrbit';
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-x-hidden">
       {/* Mouse Spotlight Effect */}
@@ -19,10 +22,10 @@ export default function Home() {
       <div className="noise-overlay" />
 
       {/* Navigation - Transparent */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-3 sm:py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <motion.div
-            className="flex items-center gap-3"
+            className="flex items-center gap-2 sm:gap-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -65,6 +68,7 @@ export default function Home() {
             </a>
           </motion.div>
 
+          {/* Desktop Navigation */}
           <motion.div
             className="hidden md:flex items-center gap-1 px-2 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
             initial={{ opacity: 0, y: -20 }}
@@ -79,16 +83,65 @@ export default function Home() {
             <Link href="#contact" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">Contact</Link>
           </motion.div>
 
-          <motion.a
-            href="mailto:udditalerts247@gmail.com"
-            className="btn-white text-sm"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Hire Me
-          </motion.a>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Hire Me Button - Hidden on very small screens */}
+            <motion.a
+              href="mailto:udditalerts247@gmail.com"
+              className="hidden sm:inline-flex btn-white text-xs sm:text-sm px-3 sm:px-4 py-2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Hire Me
+            </motion.a>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </motion.button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className="md:hidden mt-3 mx-2 rounded-2xl bg-black/80 backdrop-blur-xl border border-white/10 overflow-hidden"
+              initial={{ opacity: 0, y: -10, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: -10, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="p-4 space-y-2">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Home</Link>
+                <Link href="#about" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">About</Link>
+                <Link href="#expertise" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Expertise</Link>
+                <Link href="#projects" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Projects</Link>
+                <Link href="#blog" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Blog</Link>
+                <Link href="#contact" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Contact</Link>
+                <a
+                  href="mailto:udditalerts247@gmail.com"
+                  className="block px-4 py-3 mt-2 text-center bg-white text-black rounded-xl font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Hire Me
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Full Screen Hero Section with DeFi Aesthetic */}

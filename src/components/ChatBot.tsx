@@ -173,7 +173,7 @@ export const ChatBot = () => {
     <>
       {/* Chat Toggle Button - Standalone Icon */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 flex items-center justify-center"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -238,7 +238,7 @@ export const ChatBot = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] h-[550px] max-h-[calc(100vh-150px)] rounded-3xl overflow-hidden"
+            className="fixed bottom-20 sm:bottom-24 right-2 sm:right-6 z-50 w-[calc(100vw-16px)] sm:w-[380px] max-w-[400px] h-[70vh] sm:h-[550px] max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-150px)] rounded-2xl sm:rounded-3xl overflow-hidden"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
