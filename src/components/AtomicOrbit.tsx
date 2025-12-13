@@ -9,6 +9,7 @@ const companyLogos = [
   { name: 'YourCareer', src: '/yourcareer.png' },
   { name: 'Richie', src: '/richie.png' },
   { name: 'Patent Tool', src: '/patent tool.png' },
+  { name: 'Sivi Academy', src: 'https://siviacademy.in/icononly.svg' },
 ];
 
 export const AtomicOrbit = () => {
