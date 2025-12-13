@@ -3,13 +3,22 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const companyLogos = [
-  { name: 'Shipsarthi', src: '/shipsarthi.png', url: 'https://shipsarthi.com' },
-  { name: 'Zammer', src: '/zammer.png', url: 'https://zammernow.com' },
-  { name: 'YourCareer', src: '/yourcareer.png', url: 'https://yourcareers.online' },
-  { name: 'Richie', src: '/richie.png', url: 'https://richieai.in' },
-  { name: 'Patent Tool', src: '/patent tool.png', url: '#' },
-  { name: 'Sivi Academy', src: 'https://siviacademy.in/icononly.svg', url: 'https://siviacademy.in' },
+interface CompanyLogo {
+  name: string;
+  src: string;
+  url: string;
+  isText: boolean;
+  letter?: string;
+}
+
+const companyLogos: CompanyLogo[] = [
+  { name: 'Shipsarthi', src: '/shipsarthi.png', url: 'https://shipsarthi.com', isText: false },
+  { name: 'Zammer', src: '/zammer.png', url: 'https://zammernow.com', isText: false },
+  { name: 'YourCareer', src: '/yourcareer.png', url: 'https://yourcareers.online', isText: false },
+  { name: 'Richie', src: '/richie.png', url: 'https://richieai.in', isText: false },
+  { name: 'Patent Tool', src: '/patent tool.png', url: '#', isText: false },
+  { name: 'Sivi Academy', src: 'https://siviacademy.in/icononly.svg', url: 'https://siviacademy.in', isText: false },
+  { name: 'Gantavyam', src: '', url: 'https://www.gantavyam.site/', isText: true, letter: 'G' },
 ];
 
 export const AtomicOrbit = () => {
@@ -117,14 +126,20 @@ export const AtomicOrbit = () => {
                       href={logo.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group block"
+                      className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group flex items-center justify-center"
                     >
-                      <Image
-                        src={logo.src}
-                        alt={logo.name}
-                        fill
-                        className="object-contain drop-shadow-lg"
-                      />
+                      {logo.isText ? (
+                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
+                          {logo.letter}
+                        </span>
+                      ) : (
+                        <Image
+                          src={logo.src}
+                          alt={logo.name}
+                          fill
+                          className="object-contain drop-shadow-lg"
+                        />
+                      )}
                       <div className="absolute -bottom-6 sm:-bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                         <span className="text-[10px] sm:text-xs text-gray-300 bg-black/80 px-2 py-1 rounded">
                           {logo.name}
