@@ -76,7 +76,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <Link href="/" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">Home</Link>
-            <Link href="#about" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">About</Link>
+            <Link href="/about" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">About</Link>
             <Link href="#expertise" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">Expertise</Link>
             <Link href="#projects" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">Projects</Link>
             <Link href="#blog" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition rounded-full hover:bg-white/5">Blog</Link>
@@ -126,7 +126,7 @@ export default function Home() {
             >
               <div className="p-4 space-y-2">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Home</Link>
-                <Link href="#about" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">About</Link>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">About</Link>
                 <Link href="#expertise" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Expertise</Link>
                 <Link href="#projects" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Projects</Link>
                 <Link href="#blog" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition">Blog</Link>
