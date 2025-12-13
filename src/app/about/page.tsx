@@ -185,7 +185,7 @@ export default function AboutPage() {
                 exit={{ rotate: -90, opacity: 0 }}
                 className="text-black font-medium text-sm"
               >
-                Menu
+                
               </motion.span>
             )}
           </AnimatePresence>
