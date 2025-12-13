@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const companyLogos = [
-  { name: 'Shipsarthi', src: '/shipsarthi.png' },
-  { name: 'Zammer', src: '/zammer.png' },
-  { name: 'YourCareer', src: '/yourcareer.png' },
-  { name: 'Richie', src: '/richie.png' },
-  { name: 'Patent Tool', src: '/patent tool.png' },
-  { name: 'Sivi Academy', src: 'https://siviacademy.in/icononly.svg' },
+  { name: 'Shipsarthi', src: '/shipsarthi.png', url: 'https://shipsarthi.com' },
+  { name: 'Zammer', src: '/zammer.png', url: 'https://zammernow.com' },
+  { name: 'YourCareer', src: '/yourcareer.png', url: 'https://yourcareers.online' },
+  { name: 'Richie', src: '/richie.png', url: 'https://richieai.in' },
+  { name: 'Patent Tool', src: '/patent tool.png', url: '#' },
+  { name: 'Sivi Academy', src: 'https://siviacademy.in/icononly.svg', url: 'https://siviacademy.in' },
 ];
 
 export const AtomicOrbit = () => {
@@ -113,7 +113,12 @@ export const AtomicOrbit = () => {
                     animate={{ rotate: -360 }}
                     transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                   >
-                    <div className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group">
+                    <a
+                      href={logo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-24 h-24 md:w-32 md:h-32 relative hover:scale-110 transition-all duration-300 cursor-pointer group block"
+                    >
                       <Image
                         src={logo.src}
                         alt={logo.name}
@@ -125,7 +130,7 @@ export const AtomicOrbit = () => {
                           {logo.name}
                         </span>
                       </div>
-                    </div>
+                    </a>
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-md -z-10 opacity-50" />
                   </motion.div>
                 </motion.div>
