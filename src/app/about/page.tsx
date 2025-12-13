@@ -96,6 +96,8 @@ export default function AboutPage() {
   const [activeSection, setActiveSection] = useState('home');
   const [filterOpen, setFilterOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll();
@@ -434,7 +436,191 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        {/* SECTION 2: Masonry Gallery Work Section (BIA Cases Style) */}
+        {/* SECTION 2: Neon-Style Video Feature Section */}
+        <section className="min-h-screen bg-black relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-8 py-24">
+            {/* Main Heading */}
+            <motion.h1
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-white">AI Driven</span>
+              <br />
+              <span className="bg-gradient-to-r from-[#00ff88] to-[#00d4ff] bg-clip-text text-transparent">
+                Patent Drafting
+              </span>
+              <br />
+              <span className="text-gray-500">& Prosecution Tool</span>
+            </motion.h1>
+
+            {/* Split Content - Video + Social */}
+            <div className="flex flex-col lg:flex-row gap-12 items-center">
+              {/* Left Side - Video with Stats */}
+              <motion.div
+                className="w-full lg:w-1/2 relative"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                {/* Video Container */}
+                <div className="relative">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full max-w-md"
+                    onTimeUpdate={(e) => {
+                      const video = e.currentTarget;
+                      const progress = (video.currentTime / video.duration) * 100;
+                      setVideoProgress(progress);
+                    }}
+                  >
+                    <source src="https://neon.com/videos/pages/home/lightning/idle.mp4?updated=20240510192048" type="video/mp4" />
+                  </video>
+
+                  {/* Progress Bar */}
+                  <div className="mt-6 w-full max-w-md">
+                    <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff]"
+                        style={{ width: `${videoProgress}%` }}
+                        transition={{ duration: 0.1 }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Side - Phone Mockup + Social Profiles */}
+              <motion.div
+                className="w-full lg:w-1/2"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                {/* Social Profiles Card */}
+                <div className="relative rounded-3xl bg-[#0d1117] border border-white/10 p-6 overflow-hidden">
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-400">Social</span>
+                      <span className="px-2 py-0.5 bg-[#00ff88]/20 text-[#00ff88] text-xs rounded-full flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-[#00ff88] rounded-full animate-pulse" />
+                        Active
+                      </span>
+                    </div>
+                    <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                    </svg>
+                  </div>
+
+                  {/* Social Links */}
+                  <div className="space-y-4">
+                    {/* LinkedIn */}
+                    <a
+                      href="https://www.linkedin.com/in/lorduddit-/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-[#0077b5] flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-white group-hover:text-[#00ff88] transition">LinkedIn</p>
+                        <p className="text-sm text-gray-500">@lorduddit-</p>
+                      </div>
+                      <svg className="w-5 h-5 text-gray-500 group-hover:text-[#00ff88] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
+
+                    {/* GitHub */}
+                    <a
+                      href="https://github.com/UDDITwork"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-[#333] flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-white group-hover:text-[#00ff88] transition">GitHub</p>
+                        <p className="text-sm text-gray-500">@UDDITwork</p>
+                      </div>
+                      <svg className="w-5 h-5 text-gray-500 group-hover:text-[#00ff88] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
+
+                    {/* YouTube */}
+                    <a
+                      href="https://www.youtube.com/@uddit748"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-[#FF0000] flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-white group-hover:text-[#00ff88] transition">YouTube</p>
+                        <p className="text-sm text-gray-500">@uddit748</p>
+                      </div>
+                      <svg className="w-5 h-5 text-gray-500 group-hover:text-[#00ff88] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Progress/Loading Indicator at bottom */}
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                      <span>Connection Status</span>
+                      <span className="text-[#00ff88]">Active</span>
+                    </div>
+                    <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-[#00ff88] to-[#00d4ff]"
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Link */}
+                <motion.a
+                  href="mailto:udditalerts247@gmail.com"
+                  className="inline-flex items-center gap-2 mt-6 text-white hover:text-[#00ff88] transition group"
+                  whileHover={{ x: 5 }}
+                >
+                  <span className="text-lg font-medium">Get in Touch</span>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </motion.a>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: Masonry Gallery Work Section (BIA Cases Style) */}
         <section id="work" className="py-24 relative">
           {/* Filter Button - BIA Style */}
           <motion.button
