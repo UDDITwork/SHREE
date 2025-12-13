@@ -82,7 +82,7 @@ export const AtomicOrbit = () => {
 
           {/* Rotating Logos Container - All logos on same orbit */}
           <motion.div
-            className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[500px] md:h-[500px]"
+            className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] md:w-[580px] md:h-[580px]"
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
           >
